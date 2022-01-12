@@ -7,6 +7,7 @@ import AppHeader from './components/appHeader/AppHeader';
 import BudgetCard from './components/budgetCard/BudgetCard';
 import ExpenseCard from './components/expenseCard/ExpenseCard';
 import InfoSection from './components/infoSection/InfoSection';
+import ExpenseInfoSection from './components/expenseInfoSection/ExpenseInfoSection';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           </Col>
           <Col md={7}>
             <InfoSection budget={10} expenses={8} />
+            <ExpenseInfoSection />
           </Col>
         </Row>
       </Container>
