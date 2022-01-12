@@ -1,79 +1,131 @@
-import React from 'react';
-// import { nanoid } from 'nanoid';
+import React, { useState } from 'react';
+import './App.css';
 import Container from './components/container/Container';
 import Section from './components/section/Section';
-// import ContactForm from './components/contactForm/ContactForm';
-// import ContactList from './components/contactList/ContactList';
-// import initData from './tempData/data.json';
-// import ContactFilter from './components/contactFilter/ContactFilter';
-import Header from './components/header/Header';
-import { Button } from '@mui/material';
+import FeedbackOptions from './components/feedbackOptions/FeedbackOptions';
+import Statistics from './components/statistics/Statistics';
+import Notification from './components/notification/Notification';
 
 const App = () => {
-  console.log('Button: ', Button);
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+
+  const addFeedback = event => {
+    const targetName = event.currentTarget.name;
+
+    switch (targetName) {
+      case 'good':
+        setGood(prev => prev + 1);
+        break;
+
+      case 'neutral':
+        setNeutral(prev => prev + 1);
+        break;
+
+      case 'bad':
+        setBad(prev => prev + 1);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const countTotalFeedback = () => {
+    return good + neutral + bad;
+  };
+  const total = countTotalFeedback();
+
+  const countPositiveFeedbackPercentage = total => {
+    return Math.round((good / total) * 100);
+  };
+  const positiveFeedbackPercentage = countPositiveFeedbackPercentage(total);
 
   return (
-    <Header title="Budget calculator">
+    <div className="App">
+      <h1 className="AppHeader">Reviews widget</h1>
       <Container>
-        <Section title={'Phonebook'}>
-          <Button variant="contained">Hello World</Button>
+        <Section title={'Please leave feedback'}>
+          <FeedbackOptions
+            options={['good', 'neutral', 'bad']}
+            onLeaveFeedback={addFeedback}
+          />
         </Section>
-
-        <Section title={'Contacts'}></Section>
+        <Section title={'Statistics'}>
+          {total > 0 ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positivePercentage={positiveFeedbackPercentage}
+            />
+          ) : (
+            <Notification message="There is no feedback" />
+          )}
+        </Section>
       </Container>
-    </Header>
+    </div>
   );
 };
 
-export default App;
-
-// const [contacts, setContacts] = useState(() => {
-//   return JSON.parse(localStorage.getItem('contacts')) ?? [];
-// });
-// const [filter, setFilter] = useState('');
-
-// const addContact = newContact => {
-//   const { name, number } = newContact;
-
-//   if (isInContacts(newContact)) {
-//     alert(`${name} is already in contacts`);
-//     return;
-//   }
-
-//   const contact = {
-//     id: nanoid(),
-//     name,
-//     number,
+// class App extends React.Component {
+//   state = {
+//     good: 0,
+//     neutral: 0,
+//     bad: 0,
 //   };
 
-//   setContacts(prev => [contact, ...prev]);
+// addFeedback = event => {
+//   const targetName = event.currentTarget.name;
+//   this.setState(prevState => ({
+//     [targetName]: prevState[targetName] + 1,
+//   }));
 // };
 
-// const delContact = contactId => {
-//   setContacts(prev => prev.filter(contact => contact.id !== contactId));
+// countTotalFeedback = () => {
+//   const { good, neutral, bad } = this.state;
+//   return good + neutral + bad;
 // };
 
-// const filterChange = event => {
-//   setFilter(event.currentTarget.value);
+// countPositiveFeedbackPercentage = total => {
+//   return Math.round((this.state.good / total) * 100);
 // };
 
-// const isInContacts = ({ name, number }) => {
-//   const normalizedName = name.toLowerCase().replace(/\s+/g, '');
-//   const normalizedNumber = number.replace(/\D/g, '');
-//   return contacts.some(contact => {
+//   render() {
+//     const total = this.countTotalFeedback();
+//     const positiveFeedbackPercentage =
+//       this.countPositiveFeedbackPercentage(total);
+//     const { good, neutral, bad } = this.state;
+
 //     return (
-//       contact.name.toLowerCase().replace(/\s+/g, '') === normalizedName ||
-//       contact.number.replace(/\D/g, '') === normalizedNumber
+// <div className="App">
+//   <h1 className="AppHeader">Reviews widget</h1>
+//   <Container>
+//     <Section title={'Please leave feedback'}>
+//       <FeedbackOptions
+//         options={['good', 'neutral', 'bad']}
+//         onLeaveFeedback={this.addFeedback}
+//       />
+//     </Section>
+//     <Section title={'Statistics'}>
+//       {total > 0 ? (
+//         <Statistics
+//           good={good}
+//           neutral={neutral}
+//           bad={bad}
+//           total={total}
+//           positivePercentage={positiveFeedbackPercentage}
+//         />
+//       ) : (
+//         <Notification message="There is no feedback" />
+//       )}
+//     </Section>
+//   </Container>
+// </div>
 //     );
-//   });
-// };
+//   }
+// }
 
-// useEffect(() => {
-//   console.log('contacts: ', contacts);
-//   window.localStorage.setItem('contacts', JSON.stringify(contacts));
-// }, [contacts]);
-
-// const normalizedFilter = filter.toLowerCase();
-// const filteredContacts = contacts.filter(contact =>
-//   contact.name.toLowerCase().includes(normalizedFilter),
-// );
+export default App;
