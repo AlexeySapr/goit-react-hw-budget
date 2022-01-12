@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-04-hooks-feedback",
+  "name": "goit-react-hw-budget",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://AlexeySapr.github.io/goit-react-hw-04-hooks-feedback",
+  "homepage": "https://AlexeySapr.github.io/goit-react-hw-budget",
   "dependencies": {
     "gh-pages": "^3.2.3",
     "prop-types": "^15.7.2",
