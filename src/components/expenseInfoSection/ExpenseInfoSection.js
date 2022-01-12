@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
 import s from './ExpenseInfoSection.module.css';
 
-const ExpenseInfoSection = () => {
+const ExpenseInfoSection = ({ expenses, delItems }) => {
   return (
     <table className={s.infoTable}>
       <thead>
@@ -13,27 +13,19 @@ const ExpenseInfoSection = () => {
       </thead>
 
       <tbody>
-        <tr>
-          <td>cell1_1</td>
-          <td>cell2_1</td>
-          <td>
-            <Button variant="primary">Delete</Button>
-          </td>
-        </tr>
-        <tr>
-          <td>cell1_2</td>
-          <td>cell2_2</td>
-          <td>
-            <Button variant="primary">Delete</Button>
-          </td>
-        </tr>
-        <tr>
-          <td>cell1_3</td>
-          <td>cell2_3</td>
-          <td>
-            <Button variant="primary">Delete</Button>
-          </td>
-        </tr>
+        {expenses.map(({ id, name, amount }) => {
+          return (
+            <tr key={id}>
+              <td>{name}</td>
+              <td>{amount}</td>
+              <td>
+                <Button variant="primary" onClick={() => delItems(id)}>
+                  Delete
+                </Button>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
