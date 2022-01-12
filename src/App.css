@@ -1,7 +1,9 @@
-.AppHeader {
-  text-align: center;
-  background-color: teal;
+.container {
+  margin-top: 1rem;
 }
 
-.ReviewsHeader {
+.form-label {
+  font-size: 20px;
+  color: #171718;
+  cursor: pointer;
 }

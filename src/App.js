@@ -1,131 +1,56 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import Container from './components/container/Container';
 import Section from './components/section/Section';
-import FeedbackOptions from './components/feedbackOptions/FeedbackOptions';
-import Statistics from './components/statistics/Statistics';
-import Notification from './components/notification/Notification';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import AppHeader from './components/appHeader/AppHeader';
 
 const App = () => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
-
-  const addFeedback = event => {
-    const targetName = event.currentTarget.name;
-
-    switch (targetName) {
-      case 'good':
-        setGood(prev => prev + 1);
-        break;
-
-      case 'neutral':
-        setNeutral(prev => prev + 1);
-        break;
-
-      case 'bad':
-        setBad(prev => prev + 1);
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const countTotalFeedback = () => {
-    return good + neutral + bad;
-  };
-  const total = countTotalFeedback();
-
-  const countPositiveFeedbackPercentage = total => {
-    return Math.round((good / total) * 100);
-  };
-  const positiveFeedbackPercentage = countPositiveFeedbackPercentage(total);
-
   return (
-    <div className="App">
-      <h1 className="AppHeader">Reviews widget</h1>
+    <>
+      <AppHeader title={'Budget calculator'} />
       <Container>
-        <Section title={'Please leave feedback'}>
-          <FeedbackOptions
-            options={['good', 'neutral', 'bad']}
-            onLeaveFeedback={addFeedback}
-          />
-        </Section>
-        <Section title={'Statistics'}>
-          {total > 0 ? (
-            <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
-              total={total}
-              positivePercentage={positiveFeedbackPercentage}
-            />
-          ) : (
-            <Notification message="There is no feedback" />
-          )}
-        </Section>
+        <Row md={4}>
+          <Col md={5}>
+            <Section>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Enter your total budget</Form.Label>
+                  <Form.Control type="number" size="lg" />
+                </Form.Group>
+
+                <div className="d-grid gap-2">
+                  <Button variant="primary" size="lg" type="submit">
+                    Save
+                  </Button>
+                </div>
+              </Form>
+            </Section>
+            <Section>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Enter expense name</Form.Label>
+                  <Form.Control type="text" size="lg" />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Enter expense amount</Form.Label>
+                  <Form.Control type="number" size="lg" />
+                </Form.Group>
+
+                <div className="d-grid gap-2">
+                  <Button variant="primary" size="lg" type="submit">
+                    Add
+                  </Button>
+                </div>
+              </Form>
+            </Section>
+          </Col>
+          <Col md={7}>2 of 3</Col>
+        </Row>
       </Container>
-    </div>
+    </>
   );
 };
-
-// class App extends React.Component {
-//   state = {
-//     good: 0,
-//     neutral: 0,
-//     bad: 0,
-//   };
-
-// addFeedback = event => {
-//   const targetName = event.currentTarget.name;
-//   this.setState(prevState => ({
-//     [targetName]: prevState[targetName] + 1,
-//   }));
-// };
-
-// countTotalFeedback = () => {
-//   const { good, neutral, bad } = this.state;
-//   return good + neutral + bad;
-// };
-
-// countPositiveFeedbackPercentage = total => {
-//   return Math.round((this.state.good / total) * 100);
-// };
-
-//   render() {
-//     const total = this.countTotalFeedback();
-//     const positiveFeedbackPercentage =
-//       this.countPositiveFeedbackPercentage(total);
-//     const { good, neutral, bad } = this.state;
-
-//     return (
-// <div className="App">
-//   <h1 className="AppHeader">Reviews widget</h1>
-//   <Container>
-//     <Section title={'Please leave feedback'}>
-//       <FeedbackOptions
-//         options={['good', 'neutral', 'bad']}
-//         onLeaveFeedback={this.addFeedback}
-//       />
-//     </Section>
-//     <Section title={'Statistics'}>
-//       {total > 0 ? (
-//         <Statistics
-//           good={good}
-//           neutral={neutral}
-//           bad={bad}
-//           total={total}
-//           positivePercentage={positiveFeedbackPercentage}
-//         />
-//       ) : (
-//         <Notification message="There is no feedback" />
-//       )}
-//     </Section>
-//   </Container>
-// </div>
-//     );
-//   }
-// }
 
 export default App;
