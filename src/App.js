@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import AppHeader from './components/appHeader/AppHeader';
 import BudgetCard from './components/budgetCard/BudgetCard';
 import ExpenseCard from './components/expenseCard/ExpenseCard';
+import InfoSection from './components/infoSection/InfoSection';
 
 const App = () => {
   return (
@@ -21,7 +22,9 @@ const App = () => {
               <ExpenseCard />
             </Section>
           </Col>
-          <Col md={7}>2 of 3</Col>
+          <Col md={7}>
+            <InfoSection budget={10} expenses={8} />
+          </Col>
         </Row>
       </Container>
     </>
