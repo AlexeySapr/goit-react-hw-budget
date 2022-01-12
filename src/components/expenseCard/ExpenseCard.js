@@ -12,7 +12,7 @@ const ExpenseCard = () => {
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Enter expense amount</Form.Label>
-          <Form.Control type="number" size="lg" />
+          <Form.Control type="number" size="lg" defaultValue={0} />
         </Form.Group>
 
         <div className="d-grid gap-2">

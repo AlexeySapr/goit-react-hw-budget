@@ -5,11 +5,12 @@
   text-align: center;
   text-transform: uppercase;
   margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 
-.list li {
+/* .list li {
   outline: 1px solid teal;
-}
+} */
 
 .budgetItem {
   color: green;
