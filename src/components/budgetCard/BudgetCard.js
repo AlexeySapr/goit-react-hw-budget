@@ -4,8 +4,8 @@ import FormCard from '../formCard/FormCard';
 const BudgetCard = ({ handleBudget }) => {
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('e: ', e.target.budget.value);
     handleBudget(e.target.budget.value);
+    e.target.reset();
   };
 
   return (

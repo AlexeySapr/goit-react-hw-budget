@@ -2,22 +2,17 @@ import { useState } from 'react';
 import './App.css';
 
 import { Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Section from './components/section/Section';
 import AppHeader from './components/appHeader/AppHeader';
 import BudgetCard from './components/budgetCard/BudgetCard';
 import ExpenseCard from './components/expenseCard/ExpenseCard';
 import InfoSection from './components/infoSection/InfoSection';
 import ExpenseInfoSection from './components/expenseInfoSection/ExpenseInfoSection';
-
-const initData = [
-  { id: 1, name: 'car', amount: 10 },
-  { id: 2, name: 'house', amount: 25 },
-  { id: 3, name: 'bike', amount: 5 },
-];
+import { nanoid } from 'nanoid';
 
 const App = () => {
-  const [expenses, setExpenses] = useState(() => initData);
+  const [expenses, setExpenses] = useState([]);
   const [budget, setBudget] = useState(0);
 
   const handleDelItems = id => {
@@ -27,6 +22,14 @@ const App = () => {
   const handleBudget = budget => {
     setBudget(budget);
   };
+
+  const handleExpenses = newExp => {
+    setExpenses([{ id: nanoid(), ...newExp }, ...expenses]);
+  };
+
+  const allExpenses = expenses.reduce((sum, item) => {
+    return sum + item.amount;
+  }, 0);
 
   return (
     <>
@@ -38,11 +41,11 @@ const App = () => {
               <BudgetCard handleBudget={handleBudget} />
             </Section>
             <Section>
-              <ExpenseCard />
+              <ExpenseCard handleExpenses={handleExpenses} />
             </Section>
           </Col>
           <Col md={7}>
-            <InfoSection budget={budget} expenses={8} />
+            <InfoSection budget={budget} expenses={allExpenses} />
             {expenses.length > 0 && (
               <ExpenseInfoSection
                 expenses={expenses}

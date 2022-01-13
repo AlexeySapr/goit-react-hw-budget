@@ -1,18 +1,40 @@
+import { useRef } from 'react';
+
 import { Form, Button } from 'react-bootstrap';
 import FormCard from '../formCard/FormCard';
 
-const ExpenseCard = () => {
+const ExpenseCard = ({ handleExpenses }) => {
+  const refName = useRef();
+  const refAmount = useRef();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    handleExpenses({
+      [refName.current.name]: refName.current.value,
+      [refAmount.current.name]: Number(refAmount.current.value),
+    });
+
+    e.target.reset();
+  };
+
   return (
     <FormCard>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Enter expense name</Form.Label>
-          <Form.Control type="text" size="lg" />
+          <Form.Control type="text" size="lg" name="name" ref={refName} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Enter expense amount</Form.Label>
-          <Form.Control type="number" size="lg" defaultValue={0} />
+          <Form.Control
+            type="number"
+            size="lg"
+            name="amount"
+            ref={refAmount}
+            defaultValue={0}
+          />
         </Form.Group>
 
         <div className="d-grid gap-2">
