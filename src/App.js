@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 
 import { Container, Row, Col } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Section from './components/section/Section';
 import AppHeader from './components/appHeader/AppHeader';
 import BudgetCard from './components/budgetCard/BudgetCard';
