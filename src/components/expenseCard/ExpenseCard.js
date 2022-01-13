@@ -23,7 +23,13 @@ const ExpenseCard = ({ handleExpenses }) => {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Enter expense name</Form.Label>
-          <Form.Control type="text" size="lg" name="name" ref={refName} />
+          <Form.Control
+            type="text"
+            size="lg"
+            name="name"
+            ref={refName}
+            required
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
