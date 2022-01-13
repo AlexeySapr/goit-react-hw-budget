@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 import { Container, Row, Col } from 'react-bootstrap';
@@ -12,8 +12,12 @@ import ExpenseInfoSection from './components/expenseInfoSection/ExpenseInfoSecti
 import { nanoid } from 'nanoid';
 
 const App = () => {
-  const [expenses, setExpenses] = useState([]);
-  const [budget, setBudget] = useState(0);
+  const [budget, setBudget] = useState(() => {
+    return JSON.parse(localStorage.getItem('budget')) ?? 0;
+  });
+  const [expenses, setExpenses] = useState(() => {
+    return JSON.parse(localStorage.getItem('expenses')) ?? [];
+  });
 
   const handleDelItems = id => {
     setExpenses(expenses.filter(elem => elem.id !== id));
@@ -30,6 +34,14 @@ const App = () => {
   const allExpenses = expenses.reduce((sum, item) => {
     return sum + item.amount;
   }, 0);
+
+  useEffect(() => {
+    window.localStorage.setItem('budget', JSON.stringify(budget));
+  }, [budget]);
+
+  useEffect(() => {
+    window.localStorage.setItem('expenses', JSON.stringify(expenses));
+  }, [expenses]);
 
   return (
     <>
